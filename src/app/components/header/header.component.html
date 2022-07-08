@@ -1,0 +1,40 @@
+<div class="app-header header">
+    <div class="container-fluid">
+        <div class="d-flex">
+            <a class="header-brand" routerLink="/golddashboard">
+                <img src="assets/images/SJ_final_logo-01.png" class="header-brand-img desktop-logo" alt="Sindhu Jewellers logo">
+                <img src="assets/images/SJ_final_logo-01.png" class="header-brand-img mobile-view-logo" alt="Sindhu Jewellers logo">
+            </a>
+            <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-toggle="sidebar"></a>
+            <marquee behavior="scroll" direction="left" style="width: 900px;" scrollamount="3">
+                <h3 class="text-white">Today => Gold 18KK : ₹ {{gold_rate18kk}} ,  Gold 22KK : ₹ {{gold_rate22kk}} ,Silver : ₹ {{silver_rate}}</h3>                                    
+                 </marquee>
+            <div class="d-flex order-lg-2 ml-auto header-right-icons header-search-icon">
+                <a data-toggle="search" class="nav-link nav-link-lg d-md-none navsearch"><i class="ion ion-search"></i></a>
+                <div class="dropdown text-center selector profile-1">
+                    <a data-toggle="dropdown" class="nav-link leading-none d-flex">
+                        <span><img src="assets/images/boy-face.png" alt="profile-user" class="avatar avatar-sm brround cover-image mb-1 ml-0"></span>
+                        <span class=" ml-3 d-none d-lg-block ">
+                <span class="text-white ">{{userName | titlecase}}</span>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                        <div class="text-center bg-image p-4 text-white">
+                            <a class="dropdown-item text-white text-center font-weight-sembold user" data-toggle="dropdown">{{userName | titlecase}}</a>
+                            <!-- <span class="text-center user-semi-title text-white">{{role | titlecase}}</span> -->
+                        </div>
+                        <!-- <a *ngIf="roleId == '4' || roleId == '3'" class="dropdown-item" routerLink="/profile">
+                            <i class="dropdown-icon mdi mdi-compass-outline"></i> Profile
+                        </a> -->
+                        <a class="dropdown-item" style="cursor: pointer;" (click)="logout()">
+                            <i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="header-toggler d-lg-none ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
+                <span class="header-toggler-icon"></span>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,260 @@
+<app-header></app-header>
+<app-sidemenu></app-sidemenu>
+<div class="app sidebar-mini">
+    <div class="page">
+        <div class="page-main" [class.opacity-2]="viewBox" [class.opacity-10]="!viewBox">
+            <div class="app-content">
+                <div class="side-app">
+                    <div class="page-header">
+                        <h4 class="page-title">Sub-Categories</h4>
+                    </div>
+                    <div class="card">
+                        <div class="card-header-1">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="card-title">
+                                        <button class="btn btn-success  w-auto button-rad" (click)="openModalBox()"><i class="fa fa-plus-circle icon-space"
+                                                aria-hidden="true"></i>Create <span class="window-text">Sub-Category</span></button>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="">
+                                        <form class="search-bar search-server">
+                                            <div class=" has-search">
+                                                <span class="fa fa-search form-control-feedback"></span>
+                                                <input [formControl]="searchField" type="text" class="form-control" placeholder="Search">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card p-4" [class.h-250]="loading" *ngIf="subCategoryList.length == 0">
+                                <ngx-loading [show]="loading"></ngx-loading>
+                                <div class="card-header-1">
+                                    <h4 class="text-center">Sub-Categories Not Available</h4>
+                                </div>
+                            </div>
+                            <div class="card" *ngIf="subCategoryList.length != 0">
+                                <div class="card-header">
+                                    <div class="card-title">List of Sub-Categories - ( {{subCategoryList.length}} )</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered text-nowrap w-100 text-center align-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th class="wd-15p">S.no</th>
+                                                    <th class="wd-15p">Name</th>
+                                                    <th class="wd-15p">Image</th>
+                                                    <th class="wd-15p">Status</th>
+                                                    <th class="wd-15p">Edit</th>
+                                                    <th class="wd-15p">Edit Image</th>
+                                                    <th class="wd-10p">Value</th>
+                                                    <th class="wd-25p">Delete</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let subCategory of subCategoryList| paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                                                    <td>{{(i+1) + ((p-1) * 5)}}</td>
+                                                    <td>{{subCategory.sub_category_name | titlecase}}<br/>
+                                                        ({{subCategory.category.category_name}})
+                                                    </td>
+                                                    <td>
+                                                        <img [defaultImage]="defaultImage" lazyLoad="{{convertImageUrl(subCategory.sub_category_image)}}" class="image" (click)="viewImage(subCategory.sub_category_name, subCategory.sub_category_image, subCategory.sub_category_description, subCategory.tags[0].sub_category_tags)">
+                                                    </td>
+                                                    <td>
+                                                        <span class=" text-success status_icon m-1 " *ngIf="subCategory.active_status == 1"><i
+                                                                class="fa fa-smile-o mr-2 mobile-icon"
+                                                                aria-hidden="true"></i><span class="window-text">
+                                                                Active</span></span>
+                                                        <span class=" text-danger status_icon m-1 " *ngIf="subCategory.active_status == 0"><i
+                                                                class="fa fa-frown-o mr-2 mobile-icon"
+                                                                aria-hidden="true"></i><span class="window-text">
+                                                                In-Active</span></span>
+                                                    </td>
+                                                    <td><button class="btn btn-server btn-success" (click)="openModalBox(subCategory.id)"><i class="fa fa-pencil-square-o fa-1x mobile-icon" ></i><span class="window-text">Edit</span> </button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-server btn-success" [routerLink]="['/sub-category-image', subCategory.id]"><i
+                                                            class="fa fa-pencil-square-o fa-1x mobile-icon"></i><span
+                                                            class="window-text">Image </span></button>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-round btn-radius waves-effect waves-light m-1" *ngIf="subCategory.active_status == 0" (click)="subCategorySwitch(subCategory.id)"><i
+                                                                class="fa fa-check-circle mobile-icon"></i><span
+                                                                class="window-text">Activate</span></button>
+                                                        <button type="button" *ngIf="subCategory.active_status == 1" class="btn btn-danger btn-round btn-radius waves-effect waves-light m-1" (click)="subCategorySwitch(subCategory.id)"><i
+                                                                class="fa fa-times-circle mobile-icon"></i><span
+                                                                class="window-text">De-Activate</span></button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-server btn-danger" (click)="destroy(subCategory.id)"><i
+                                                                class="fa fa-trash-o fa-1x mobile-icon"></i> <span
+                                                                class="window-text">Delete</span></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <pagination-controls *ngIf="subCategoryList.length > 5" (pageChange)="p = $event"></pagination-controls>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="formmodal" [class.d-block]="showPopup" [class.d-none]="!showPopup">
+            <div class="modal-dialog">
+                <div class="modal-content border-success animated" [class.swing]="errorMsg.length === 0" [class.shake]="errorMsg.length != 0">
+                    <div class="modal-header bg-success">
+                        <h5 class="modal-title text-white">{{modalBoxName}} SubCategory</h5>
+                        <button id="closeModal" type="button" class="close text-white" (click)="popUpClose()" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form autocomplete="off">
+                            <div class="form-group">
+                                <input [(ngModel)]="editSubCategoryId" type="hidden" class="form-control" id="editSubCategoryId" [ngModelOptions]="{standalone: true}" *ngIf="modalBoxName === 'Edit'">
+                                <ng-autocomplete id='categoryName' class="category-details" notFoundText="Category Not Found" placeHolder="Enter Category Name" [data]="activeCategoryList" [searchKeyword]="keyword" (selected)="selectedCategory($event)"
+                                [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" [(ngModel)]="categoryName" [ngModelOptions]="{standalone: true}" (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' #auto>
+                            </ng-autocomplete>
+                            <ng-template #itemTemplate let-item>
+                                <div class="item">
+                                    <span [innerHTML]="item.name"></span>
+                                </div>
+                            </ng-template>
+                            <ng-template #notFoundTemplate let-notFound>
+                                <div [innerHTML]="notFound"></div>
+                            </ng-template>
+                            <p class="invalid-error" *ngIf="errorMsg.category_id">Category Name field is required
+                            </p>
+                            </div>
+                            <div class="form-group">
+                                <input [(ngModel)]="subCategoryName" type="text" class="form-control" id="subCategoryName" placeholder="Enter Sub-Category Name" [ngModelOptions]="{standalone: true}" (keypress)="keyPress($event, modalBoxName, editSubCategoryId)">
+                                <p class="invalid-error" *ngIf="errorMsg.sub_category_name">{{errorMsg.sub_category_name}}
+                                </p>
+                            </div>
+                            <!-- <div class="form-group">
+                                <angular2-multiselect [data]="activeTags" [(ngModel)]="tagArray" (keyup.enter)="dropDownOpen($event)" [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}" (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                                    (onDeSelectAll)="onDeSelectAll($event)" #dropdownRef></angular2-multiselect>
+                                <p class="invalid-error" *ngIf="errorMsg.sub_category_tags">
+                                    {{errorMsg.sub_category_tags}}</p>
+                            </div> -->
+                            <div class="form-group">
+                                <textarea [(ngModel)]="subCategoryDesc" class="form-control" id="subCategoryDesc" placeholder="Enter Sub-Category Description" [ngModelOptions]="{standalone: true}" (keypress)="keyPress($event, modalBoxName, editSubCategoryId)">
+                                </textarea>
+                                <p class="invalid-error" *ngIf="errorMsg.sub_category_description">
+                                    {{errorMsg.sub_category_description}}</p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" tabindex="-1" class="btn btn-danger" (click)="popUpClose()" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
+                        <button type="button" class="btn btn-success" [ngClass]="{'btn-loading disabled': loadingBtn}" (click)="store()" *ngIf="modalBoxName === 'Create'"><i class="fa fa-check-square-o"></i> {{modalBoxName}} </button>
+                        <button type="button" class="btn btn-success" [ngClass]="{'btn-loading disabled': loadingBtn}" (click)="update(editSubCategoryId)" *ngIf="modalBoxName === 'Edit'"><i class="fa fa-check-square-o"></i> {{modalBoxName}} </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- <div class="modal " id="formmodal" [class.d-block]="showPopup" [class.d-none]="!showPopup">
+            <div class="modal-dialog">
+                <div class="modal-content border-success animated" [class.swing]="errorMsg.length === 0" [class.shake]="errorMsg.length != 0">
+                    <div class="modal-header bg-success">
+                        <h5 class="modal-title text-white">{{modalBoxName}}</h5>
+                        <button id="closeModal" type="button" class="close text-white" data-dismiss="modal" (click)="popUpClose()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form autocomplete="off" *ngIf="modalBoxName === 'Create Sub-Category'">
+                    
+
+                        </form>
+                        <form autocomplete="off" *ngIf="modalBoxName === 'Edit Sub-Category'">
+                            <div class="form-group">
+                                <input [(ngModel)]="editCategoryName" type="text" class="form-control" id="editSubCategoryName" placeholder="Enter Category Name" [ngModelOptions]="{standalone: true}" *ngIf="modalBoxName === 'Edit Sub-Category'" (keypress)="$event.keyCode == 13 ? updateSubCategory() : null"
+                                    disabled>
+
+                                <p class="invalid-error" *ngIf="errorMsg.category_id">{{errorMsg.sub_category_name}}
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <input [(ngModel)]="editSubCategoryId" type="hidden" class="form-control" id="editSubCategoryId" [ngModelOptions]="{standalone: true}" *ngIf="modalBoxName === 'Edit Sub-Category'">
+                                <label *ngIf="modalBoxName === 'Edit Sub-Category'">Sub Category Name</label>
+                                <input [(ngModel)]="editSubCategoryName" type="text" [class.is-invalid]="errorMsg.sub_category_name" class="form-control" id="editSubCategoryName" placeholder="Enter Category Name" [ngModelOptions]="{standalone: true}" *ngIf="modalBoxName === 'Edit Sub-Category'"
+                                    (keypress)="$event.keyCode == 13 ? updateSubCategory() : null">
+                                <p class="invalid-error" *ngIf="errorMsg.sub_category_name">{{errorMsg.sub_category_name}}
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label *ngIf="modalBoxName === 'Edit Sub-Category'">Sub-Category Tags</label>
+                                <angular2-multiselect [data]="activeTags" [(ngModel)]="editTagArray" [ngModelOptions]="{standalone: true}" (keyup.enter)="dropDownOpen($event)" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="OnItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                                    (onDeSelectAll)="onDeSelectAll($event)" #dropdownRef></angular2-multiselect>
+                                <p class="invalid-error" *ngIf="errorMsg.sub_category_tags">{{errorMsg.sub_category_tags}}
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <textarea [(ngModel)]="editSubCategoryDesc" class="form-control" id="editSubCategoryDesc" placeholder="Enter Sub-Category Description" [ngModelOptions]="{standalone: true}" *ngIf="modalBoxName === 'Edit Sub-Category'" (keypress)="$event.keyCode == 13 ? updateSubCategory() : null">
+                              </textarea>
+                                <p class="invalid-error" *ngIf="errorMsg.sub_category_description">
+                                    {{errorMsg.sub_category_description}}</p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="popUpClose()"><i
+                                class="fa fa-times"></i> Cancel</button>
+                        <button type="button" class="btn btn-success" [ngClass]="{'btn-loading disabled': loadingBtn}" (click)="createSubCategory()" *ngIf="modalBoxName === 'Create Sub-Category'"><i
+                                class="fa fa-check-square-o"></i> {{modalBoxName}} </button>
+                        <button type="button" class="btn btn-success" [ngClass]="{'btn-loading disabled': loadingBtn}" (click)="updateSubCategory()" *ngIf="modalBoxName === 'Edit Sub-Category'"><i
+                                class="fa fa-check-square-o"></i> {{modalBoxName}} </button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="modal " [class.d-block]="viewBox" [class.d-none]="!viewBox">
+            <div class="container boder-bottom-li animated bounceInDown">
+                <div class="title">{{viewNamePreview}}</div>
+                <button (click)="popUpClose()" class="view-close btn-danger"></button>
+                <div class="text">
+                    <div class="row">
+                        <div class="col-sm-12 ">
+                            <div class="heading">
+                            </div>
+                            <div class="body-text">
+                                <img *ngIf="showImage" src="{{viewImagePreview}}" alt="image" class="view-fluid">
+                            </div>
+                        </div>
+                        <div class="view-card">
+                            <div class="card-header">
+                                <h4 class="mb-1">Description</h4>
+                            </div>
+                            <div class="card-body text-left">
+                                <p>{{viewImageDisc}}</p>
+                            </div>
+                        </div>
+                        <div class="view-card">
+                            <div class="card-header">
+                                <h4 class="mb-1">Tags</h4>
+                            </div>
+                            <div class="card-body text-left">
+                                <span *ngFor="let item of viewImageTags">{{ item.itemName}}, </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

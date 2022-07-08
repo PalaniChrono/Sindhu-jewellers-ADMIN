@@ -1,0 +1,188 @@
+<app-header></app-header>
+<app-sidemenu></app-sidemenu>
+<div class="app sidebar-mini">
+    <div class="page">
+        <div class="page-main">
+            <div class="app-content">
+                <div class="side-app">
+                    <div class="page-header">
+                        <h4 class="page-title">Trade Review</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="card">
+                                <div class="">
+                                    <ngx-loading [show]="loading"></ngx-loading>
+                                    <div class="media align-items-center">
+                                        <div class="w-icon">
+                                            <img style="height: 160px;width: auto;" src="../assets/images/dashboard/bill-count.svg" alt="user avatar" class="customer-img rounded-circle">
+                                        </div>
+                                        <div class="media-body ml-3 border-left-xs border-light-3">
+                                            <h4 class="mb-0 ml-3">{{dashboardDetails.submitted_order}}</h4>
+                                            <hr>
+                                            <p class="mb-0 ml-3 extra-small-font">Submitted Order</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="card">
+                                <ngx-loading [show]="loading"></ngx-loading>
+                                <div class="">
+                                    <div class="media align-items-center">
+                                        <div class="w-icon">
+                                            <img style="height: 160px;width: auto;" src="../assets/images/dashboard/bill-value.svg" alt="user avatar" class="customer-img rounded-circle">
+                                        </div>
+                                        <div class="media-body ml-3 border-left-xs border-light-3">
+                                            <h4 style="font-size: 20px" class="mb-0 ml-3">{{dashboardDetails.cancelled_order}}</h4>
+                                            <hr>
+                                            <p class="mb-0 ml-3 extra-small-font">Cancelled Order</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="card">
+                                <div class="">
+                                    <ngx-loading [show]="loading"></ngx-loading>
+                                    <div class="media align-items-center">
+                                        <div class="w-icon">
+                                            <img style="height: 160px;width: auto;" src="../assets/images/dashboard/bill-count.svg" alt="user avatar" class="customer-img rounded-circle">
+                                        </div>
+                                        <div class="media-body ml-3 border-left-xs border-light-3">
+                                            <h4 class="mb-0 ml-3">{{dashboardDetails.confirmed_order}}</h4>
+                                            <hr>
+                                            <p class="mb-0 ml-3 extra-small-font">Confirmed Order</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="card">
+                                <ngx-loading [show]="loading"></ngx-loading>
+                                <div class="">
+                                    <div class="media align-items-center">
+                                        <div class="w-icon">
+                                            <img style="height: 160px;width: auto;" src="../assets/images/dashboard/bill-value.svg" alt="user avatar" class="customer-img rounded-circle">
+                                        </div>
+                                        <div class="media-body ml-3 border-left-xs border-light-3">
+                                            <h4 style="font-size: 20px" class="mb-0 ml-3">{{dashboardDetails.processed_order}}</h4>
+                                            <hr>
+                                            <p class="mb-0 ml-3 extra-small-font">Processed Order</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="card">
+                                <div class="">
+                                    <ngx-loading [show]="loading"></ngx-loading>
+                                    <div class="media align-items-center">
+                                        <div class="w-icon">
+                                            <img style="height: 160px;width: auto;" src="../assets/images/dashboard/bill-count.svg" alt="user avatar" class="customer-img rounded-circle">
+                                        </div>
+                                        <div class="media-body ml-3 border-left-xs border-light-3">
+                                            <h4 class="mb-0 ml-3">{{dashboardDetails.shipped_order}}</h4>
+                                            <hr>
+                                            <p class="mb-0 ml-3 extra-small-font">Shipped Order</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="card">
+                                <ngx-loading [show]="loading"></ngx-loading>
+                                <div class="">
+                                    <div class="media align-items-center">
+                                        <div class="w-icon">
+                                            <img style="height: 160px;width: auto;" src="../assets/images/dashboard/bill-value.svg" alt="user avatar" class="customer-img rounded-circle">
+                                        </div>
+                                        <div class="media-body ml-3 border-left-xs border-light-3">
+                                            <h4 style="font-size: 20px" class="mb-0 ml-3">{{dashboardDetails.delivered_order}}</h4>
+                                            <hr>
+                                            <p class="mb-0 ml-3 extra-small-font">Delivered Order</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="card">
+                                <div class="">
+                                    <ngx-loading [show]="loading"></ngx-loading>
+                                    <div class="media align-items-center">
+                                        <div class="w-icon">
+                                            <img style="height: 160px;width: auto;" src="../assets/images/dashboard/bill-count.svg" alt="user avatar" class="customer-img rounded-circle">
+                                        </div>
+                                        <div class="media-body ml-3 border-left-xs border-light-3">
+                                            <h4 class="mb-0 ml-3">{{dashboardDetails.online_payment_order}}</h4>
+                                            <hr>
+                                            <p class="mb-0 ml-3 extra-small-font">Online Payment Order</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="card">
+                                <div class="">
+                                    <ngx-loading [show]="loading"></ngx-loading>
+                                    <div class="media align-items-center">
+                                        <div class="w-icon">
+                                            <img style="height: 160px;width: auto;" src="../assets/images/dashboard/bill-count.svg" alt="user avatar" class="customer-img rounded-circle">
+                                        </div>
+                                        <div class="media-body ml-3 border-left-xs border-light-3">
+                                            <h4 class="mb-0 ml-3">{{dashboardDetails.online_payment_count}}</h4>
+                                            <hr>
+                                            <p class="mb-0 ml-3 extra-small-font">Online Payment Count</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="card">
+                                <div class="">
+                                    <ngx-loading [show]="loading"></ngx-loading>
+                                    <div class="media align-items-center">
+                                        <div class="w-icon">
+                                            <img style="height: 160px;width: auto;" src="../assets/images/dashboard/bill-count.svg" alt="user avatar" class="customer-img rounded-circle">
+                                        </div>
+                                        <div class="media-body ml-3 border-left-xs border-light-3">
+                                            <h4 class="mb-0 ml-3">{{dashboardDetails.online_payment_value}}</h4>
+                                            <hr>
+                                            <p class="mb-0 ml-3 extra-small-font">Online Payment Value</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                            <div class="card">
+                                <ngx-loading [show]="loading"></ngx-loading>
+                                <div class="">
+                                    <div class="media align-items-center">
+                                        <div class="w-icon">
+                                            <img style="height: 160px;width: auto;" src="../assets/images/dashboard/bill-value.svg" alt="user avatar" class="customer-img rounded-circle">
+                                        </div>
+                                        <div class="media-body ml-3 border-left-xs border-light-3">
+                                            <h4 style="font-size: 20px" class="mb-0 ml-3">{{dashboardDetails.cod_order}}</h4>
+                                            <hr>
+                                            <p class="mb-0 ml-3 extra-small-font">Cash on Delivery Order</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    </div>
+                </div>
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </div>

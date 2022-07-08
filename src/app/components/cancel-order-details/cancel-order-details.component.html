@@ -1,0 +1,123 @@
+<app-header></app-header>
+<app-sidemenu></app-sidemenu>
+<div class="app sidebar-mini">
+    <div class="page">
+        <div class="page-main">
+            <div class="app-content">
+                <div class="side-app">
+                    <div class="page-header">
+                        <h4 class="page-title">Cancelled Order Details</h4>
+                    </div>
+                    <div class="card">
+                        <div class="card-header-1">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="card-title">
+                                        <button class="btn btn-success  width-150 button-rad" (click)="goBack()"><i class="zmdi zmdi-arrow-left icon-space"
+                                              aria-hidden="true"></i>Back</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card p-4" [class.h-250]="loading" *ngIf="orderDetails.length == 0">
+                                <ngx-loading [show]="loading"></ngx-loading>
+                                <div class="card-header-1">
+                                    <h4 class="text-center">Order Not Available</h4>
+                                </div>
+                            </div>
+                            <div class="card" *ngIf="orderDetails.length != 0">
+                                <div class="card-header ">
+                                    <div class="card-title">
+                                        Order Product details
+                                    </div>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered text-nowrap w-100 text-center align-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th class="wd-15p">S.No</th>
+                                                    <th class="wd-15p">Image</th>
+                                                    <th class="wd-15p">Name</th>
+                                                    <th class="wd-15p">Size</th>
+                                                    <th class="wd-15p">Price</th>
+                                                    <th class="wd-15p">Quantity</th>
+                                                    <th class="wd-15p">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let product of orderDetails.ordered_products; let i = index">
+                                                    <td>{{(i+1) + ((p-1) * 5)}}</td>
+                                                    <td><img src="{{imageURL}}{{product.product_details[0].images[0].product_image}}" alt="" class="product-img"></td>
+                                                    <td>{{(product.product_details[0].product_name.length>12)? (product.product_details[0].product_name | slice:0:12)+'..':(product.product_details[0].product_name)}}</td>
+                                                    <td>&#8377; {{product.product_price}}</td>
+                                                    <td>{{product.size.size_name}}</td>
+                                                    <td>{{product.product_quantity}}</td>
+                                                    <td>&#8377; {{product.product_total}}</td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card" *ngIf="orderDetails.length != 0">
+                                <ngx-loading [show]="loading"></ngx-loading>
+
+                                <div class="card-header-1 p-4">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="card-title mb-2 text-center text-lg-left">
+                                                Order Details
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-4">
+                                            <h4>Summary</h4>
+                                            <ul class="order-detail">
+                                                <li>Order ID: {{orderDetails.order_id}}</li>
+                                                <li>Order Date: {{orderDetails.created_at}}</li>
+                                                <li>Order Updated Date: {{orderDetails.updated_at}}</li>
+                                                <li>Order Total: &#8377; {{orderDetails.order_overall_totall}}</li>
+                                                <li>Order Status: {{orderDetails.order_status}}</li>
+                                                <li *ngIf="orderDetails.order_tracking_id">Order Track ID: {{orderDetails.order_tracking_id}}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-6 mb-4">
+                                            <h4>Shipping Address</h4>
+                                            <ul class="order-detail">
+                                                <li>{{orderDetails.billing_name}}</li>
+                                                <li>Contact No. {{orderDetails.billing_mobile_number}}</li>
+                                                <li>{{orderDetails.ordered_address?.address_name}}</li>
+                                                <li>{{orderDetails.ordered_address?.address_details}}</li>
+                                                <li>{{orderDetails.ordered_address?.address_locality_town}} - {{orderDetails.ordered_address?.address_pincode}}</li>
+                                                <li>{{orderDetails.ordered_address?.address_city_district}} - {{orderDetails.ordered_address?.address_state}}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-sm-6 mb-4">
+                                            <h4>Payment Method</h4>
+                                            <p>{{orderDetails.payment_mode}}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

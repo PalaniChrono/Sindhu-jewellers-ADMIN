@@ -1,0 +1,112 @@
+<div class="login-img">
+    <div class="page">
+        <div class="">
+            <div class="col col-login mx-auto">
+            </div>
+            <div class="container-login100" *ngIf="!forgotpassword && !newpwd">
+                <div class="wrap-login100 p-6">
+                    <div class="text-center trend-logo">
+                        <img src="assets/images/SJ_final_logo-01.jpg" alt="">
+                        <!-- <img src="assets/images/SJ_final_logo-01.png" alt=""> -->
+
+                    </div>
+                    <form class="login100-form validate-form">
+                        <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                            <input class="input100" [(ngModel)]="userName" type="text" name="email" placeholder="User Name">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                  <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                </span>
+                        </div>
+                        <div class="wrap-input100 validate-input" data-validate="Password is required">
+                            <input class="input100" [(ngModel)]="password" type="password" name="pass" placeholder="Password">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+                </span>
+                        </div>
+                        <div class="container-login100-form-btn">
+                            <button (click)="login()" class="login100-form-btn btn-primary " [class.bn-loading]="loading">
+                                Login
+                            </button>
+                            <div (click)="showForgotPassword(true)">
+                            <a  class="login100-form-btn forgotpasswordbtn">
+                                Forgot Password ? 
+                            </a>
+                            </div>
+                            <div class="footer-logo">
+                                <h5 style="color: rgb(255, 255, 255);">Powered By</h5>
+                                <img src="assets/images/logo/chrono-logo-new.png" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="container-login100" *ngIf="forgotpassword && !newpwd">
+                <div class="wrap-login100 p-6">
+                    <div class="text-center">
+                        <h2 style="color: white;">Change Password</h2>
+                    </div>
+                    <form class="login100-form validate-form">
+                        <div class="wrap-input100 validate-input">
+                            <input class="input100" [(ngModel)]="userNamePwd" type="text" name="username" placeholder="Enter Your User Name">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="wrap-input100 validate-input" *ngIf="showOtpBox">
+                            <input class="input100" [(ngModel)]="userOTPPwd" type="password" name="otp" placeholder="Enter Your OTP">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="container-login100-form-btn">
+                            <button (click)="adminForgotPassword()" class="login100-form-btn butn btn-primary" *ngIf="!showOtpBox">
+                                <span *ngIf="!sendotp">Sent Otp To Email</span>
+                                <span *ngIf="sendotp">
+                                    <i class="fa fa-spinner fa-spin"></i>Sending OTP to Mail
+                                </span>
+                            </button>
+                            <button (click)="checkPasswordChangeOTP()" class="login100-form-btn btn-primary " *ngIf="showOtpBox">
+                                <span>Submit OTP</span>
+                            </button>
+                            <button (click)="showlogin()" class="login100-form-btn forgotpasswordbtn">
+                                Back To Login
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="container-login100" *ngIf="newpwd && !forgotpassword">
+                <div class="wrap-login100 p-6">
+                    <div class="text-center">
+                        <h2 style="color: white;">New Password</h2>
+                    </div>
+                    <form class="login100-form validate-form">
+                        <div class="wrap-input100 validate-input">
+                            <input class="input100" [(ngModel)]="newPassword" type="password" name="newPassword" placeholder="Enter Password">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="wrap-input100 validate-input">
+                            <input class="input100" [(ngModel)]="newConfirmPassword" type="password" name="otp" placeholder="Enter Confirm Password">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                        <div class="container-login100-form-btn">
+                            <button (click)="changePassword()" class="login100-form-btn btn-primary">
+                                <span>Change Password</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

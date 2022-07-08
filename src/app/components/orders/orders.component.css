@@ -1,0 +1,29 @@
+mat-slider {
+    width: 300px;
+}
+
+::ng-deep .mat-slider-wrapper {
+    background-color: #ccc;
+}
+
+::ng-deep .mat-slider-thumb-label {
+    background-color: black;
+}
+
+::ng-deep .mat-slider-thumb {
+    background-color: #69f0ae !important;
+}
+
+::ng-deep .mat-slider-thumb-label {
+    transform: rotate(45deg) !important;
+    border-radius: 50% 50% 0 !important;
+    background-color: #69f0ae !important;
+}
+
+::ng-deep .mat-slider-thumb {
+    transform: scale(0) !important;
+}
+
+::ng-deep .mat-slider-thumb-label-text {
+    opacity: 1 !important;
+}

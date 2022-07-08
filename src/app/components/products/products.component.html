@@ -1,0 +1,392 @@
+<app-header></app-header>
+<app-sidemenu></app-sidemenu>
+<div class="app sidebar-mini">
+    <div class="page">
+        <div class="page-main" [class.opacity-2]="viewBox" [class.opacity-10]="!viewBox">
+            <div class="app-content">
+                <div class="side-app">
+                    <div class="page-header">
+                        <h4 class="page-title">Products</h4>
+                    </div>
+                    <div class="card">
+                        <div class="card-header-1">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="card-title">
+                                        <button class="btn btn-success  width-150 button-rad" (click)="openModalBox('Create')"><i class="fa fa-plus-circle icon-space"
+                                                aria-hidden="true"></i>Create Product</button>
+                                    </div>
+                                </div>
+
+                               <!--  <div class="col-4">
+                                  <marquee behavior="scroll" direction="left" style="width: 210px;" scrollamount="3">
+                                    <h3>Today Gold Price :  {{goldprice }}</h3>                                    
+                                     </marquee>
+                                </div>
+ -->
+
+                                <div class="col-6">
+                                    <div class="">
+                                        <form class="search-bar search-server">
+                                            <div class=" has-search">
+                                                <span class="fa fa-search form-control-feedback"></span>
+                                                <input [formControl]="searchField" type="text" class="form-control" placeholder="Search">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card p-4" [class.h-250]="loading" *ngIf="productList.length == 0">
+                                <ngx-loading [show]="loading"></ngx-loading>
+                                <div class="card-header-1">
+                                    <h4 class="text-center">Products Not Available</h4>
+                                </div>
+                            </div>
+                            <div class="card" *ngIf="productList.length != 0">
+                                <div class="card-header">
+                                    <div class="card-title">List of Products - ( {{productList.length}} )</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered text-nowrap w-100 text-center align-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th class="wd-15p">S.no</th>
+                                                    <th class="wd-15p">Name</th>
+                                                    <th class="wd-15p">Image</th>
+                                                    <!-- <th class="wd-15p">Image</th> -->
+                                                    <th class="wd-15p">Price</th>
+                                                    <th class="wd-15p">HMC</th>
+                                                    <th class="wd-15p">MC</th>
+                                                    <th class="wd-15p">WA</th>
+                                                    <th class="wd-15p">Status</th>
+                                                    <th class="wd-15p">Stocks</th>
+                                                    <th class="wd-15p">Edit</th>
+                                                    <th class="wd-15p">Edit Image</th>
+                                                    <th class="wd-10p">Value</th>
+                                                    <th class="wd-25p">Delete</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let product of productList| paginate: { itemsPerPage: 5, currentPage: sno }; let i = index">
+                                                    <td>{{(i+1) + ((sno-1) * 5)}}</td>
+                                                    <td>{{product.product_name | titlecase}}</td>
+                                                    <td *ngIf="product.images.length === 0">
+                                                        update Image
+                                                    </td>
+                                                    <!-- <td *ngIf="product.images.length !== 0">
+                                                        <img [defaultImage]="defaultImage" lazyLoad="{{product.images[0].product_image}}" class="image" (click)="viewImage(product.id)">
+                                                    </td> -->
+                                                    <td *ngIf="product.images.length !== 0">
+                                                        <img  defaultImage="defaultImage" class="image" [src]=convertImageUrl(product.images[0].product_image) (click)="viewImage(product.id,product.images[0].product_image)">
+                                                    </td>
+                                                    <td *ngIf="product.metal_pureity == 'gold18kk'">{{product.product_price[0].cart_18}}</td>
+                                                    <td *ngIf="product.metal_pureity == 'gold22kk'">{{product.product_price[0].cart_22}}</td>
+                                                    <td *ngIf="product.metal_pureity == 'silver'">{{product.product_price[0].silver_rate}}</td>
+                                                    <td>{{product.product_hallmark_price}}</td>
+                                                    <td>{{product.product_makingcharge}}</td>
+                                                    <td>{{product.product_wastage}}</td>
+                                                    <td>
+                                                        <span class=" text-success status_icon m-1 " *ngIf="product.active_status == 1"><i
+                                                                class="fa fa-smile-o mr-2 mobile-icon"
+                                                                aria-hidden="true"></i><span class="window-text">
+                                                                Active</span></span>
+                                                        <span class=" text-danger status_icon m-1 " *ngIf="product.active_status == 0"><i
+                                                                class="fa fa-frown-o mr-2 mobile-icon"
+                                                                aria-hidden="true"></i><span class="window-text">
+                                                                In-Active</span></span>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-server btn-warning" (click)="openModalBox('Stocks', product.id, product.product_name)"><i class="fa fa-pencil-square-o fa-1x mobile-icon"></i><span class="window-text">Stock Update</span></button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-server btn-success" (click)="openModalBox('Edit', product.id)"><i class="fa fa-pencil-square-o fa-1x mobile-icon"></i><span class="window-text">Edit </span></button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-server btn-success" [routerLink]="['/product-image', product.product_slug]"><i class="fa fa-pencil-square-o fa-1x mobile-icon"></i><span class="window-text">Image </span></button>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-server btn-success btn-round btn-radius waves-effect waves-light m-1" *ngIf="product.active_status == 0" (click)="productSwitch(product.id)"><i
+                                                                class="fa fa-check-circle mobile-icon"></i><span
+                                                                class="window-text">Activate</span></button>
+                                                        <button type="button" *ngIf="product.active_status == 1" class="btn  btn-server btn-danger btn-round btn-radius waves-effect waves-light m-1" (click)="productSwitch(product.id)"><i
+                                                                class="fa fa-times-circle mobile-icon"></i><span
+                                                                class="window-text">De-Activate</span></button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-server btn-danger" (click)="destroy(product.id)"><i
+                                                                class="fa fa-trash-o fa-1x mobile-icon"></i> <span
+                                                                class="window-text">Delete</span></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <pagination-controls *ngIf="productList.length > 5" (pageChange)="sno = $event"></pagination-controls>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal " id="formmodal" [class.d-block]="showPopup" [class.d-none]="!showPopup">
+            <div class="modal-dialog" style="overflow-y: scroll; max-height:85%; margin-bottom:50px;" >
+                <div class="modal-content border-success animated" [class.swing]="errorMsg.length === 0" [class.shake]="errorMsg.length != 0">
+                    <div class="modal-header bg-success">
+                        <h5 class="modal-title text-white">{{modalBoxName}} Products</h5>
+                        <button id="closeModal" type="button" class="close text-white" data-dismiss="modal" (click)="popUpClose()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form autocomplete="off">
+                          <!--   <div class="form-group">
+                                <input [(ngModel)]="editProductId" type="hidden" class="form-control" id="editProductId" [ngModelOptions]="{standalone: true}">
+                                <ng-autocomplete id='categoryName' class="category-details" notFoundText="Category Not Found" placeHolder="Category Name" [data]="categories" [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
+                                    [notFoundTemplate]="notFoundTemplate" [(ngModel)]="categoryName" [ngModelOptions]="{standalone: true}" (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' #auto>
+                                </ng-autocomplete>
+
+                                <ng-template #itemTemplate let-item>
+                                    <div class="item">
+                                        <span [innerHTML]="item.name"></span>
+                                    </div>
+                                </ng-template>
+
+                                <ng-template #notFoundTemplate let-notFound>
+                                    <div [innerHTML]="notFound"></div>
+                                </ng-template>
+                                <p class="invalid-error" *ngIf="errorMsg.category_id">Category Name field is required
+                                </p>
+                            </div> -->
+
+                            <div class="form-group">
+                                <label>Select Category</label>
+                                <select [(ngModel)]="categoryName" class="form-control" (ngModelChange)="getFilteredSubCategory(categoryName)" [ngModelOptions]="{standalone: true}">
+                                 <option [ngValue] = "0">Select Category</option>
+                                 <option *ngFor="let activeCategory of categories" [ngValue]="activeCategory.id">{{activeCategory.name}}</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Sub Category</label>
+                                  <select   [(ngModel)]="subCategoryName" class="form-control" [ngModelOptions]="{standalone: true}">
+                                    <option  [ngValue] = "0">Select Sub Category</option>
+                                    <option *ngFor="let activeCategory of filteredSubCategories" [ngValue]="activeCategory.id">{{activeCategory.name}}</option>
+                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label *ngIf="modalBoxName === 'Edit'"> Product Name</label>
+                                <input [(ngModel)]="productName" type="text" class="form-control" id="productName" placeholder="Enter Product Name" [ngModelOptions]="{standalone: true}" (keypress)="keyPress($event, modalBoxName, editProductId)">
+                                <p class="invalid-error" *ngIf="errorMsg.product_name">{{errorMsg.product_name}}
+                                </p>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-6 mx-auto d-flex flex-column">
+                                    <label *ngIf="modalBoxName === 'Edit'"> Weight (in gms)</label>
+                                    <input [(ngModel)]="productWeight" type="text" class="form-control" id="productWeight" placeholder="Weight(in gms)" [ngModelOptions]="{standalone: true}" (keypress)="keyPress($event, modalBoxName, editProductId)"  (keypress)="keyPressNumbers($event)">
+                                    <p class="invalid-error" *ngIf="errorMsg.product_weight">{{errorMsg.product_weight}}</p>
+                                </div>
+                                <div class="form-group col-6 mx-auto d-flex flex-column ">
+                                    <label *ngIf="modalBoxName === 'Edit'"> TAX %</label>
+                                    <select  [(ngModel)]="productTax" class="form-control" [ngModelOptions]="{standalone: true}">
+                                        <option  [ngValue] = "1">TAX %</option>
+                                        <option  [ngValue] = "0">0 %</option>
+                                        <option  [ngValue] = "3">3 %</option>
+                                        <option  [ngValue] = "5">5 %</option>
+                                        <option  [ngValue] = "12">12 %</option>
+                                        <option  [ngValue] = "18">18 %</option>
+                                        <option  [ngValue] = "28">28 %</option>
+
+                                       <!--  <option *ngFor="let productTax of filteredSubCategories" [ngValue]="productTax.id">{{productTax.name}}</option> -->
+                                     </select>
+                                </div>                  
+                            </div>
+
+                              <div class="row">
+
+                                <div class="form-group col-4 mx-auto d-flex flex-column ">
+                                    <div class="radios s-check">
+                                        <input id="radio-2" (change)="gramType('gold18kk')" name="metalPureity" type="radio" value="gold18kk"  [(ngModel)]="metalPureity"  >
+                                        <label for="radio-2" class="radio-label input-text add-address-table" style="white-space: nowrap;">Gold 18KK</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-4 mx-auto d-flex flex-column">
+                                    <div class="radios s-check">
+                                        <input id="radio-1" (change)="gramType('gold22kk')" name="metalPureity" type="radio" value="gold22kk" [(ngModel)]="metalPureity" > 
+                                        <label for="radio-1" class="radio-label input-text add-address-table" style="white-space: nowrap;">Gold 22KK</label>
+                                    </div>
+                                    
+                                </div>
+                               
+                                <div class="form-group col-4 mx-auto d-flex flex-column ">
+                                    <div class="radios s-check">
+                                        <input id="radio-3" (change)="gramType('silver')" name="metalPureity" type="radio" value="silver"  [(ngModel)]="metalPureity"   >
+                                        <label for="radio-3" class="radio-label input-text add-address-table" style="white-space: nowrap;">Silver</label>
+                                    </div>
+                                </div>                  
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group col-4 mx-auto d-flex flex-column">
+                                    <label *ngIf="modalBoxName === 'Edit'"> Wastage (in %)</label>
+                                   <input class="form-control" type="text" [placeholder]="'Wastage(in %)'"  [(ngModel)]="productWastage" [ngModelOptions]="{ standalone: true }" (keypress)="keyPress($event, modalBoxName, editProductId)"  (keypress)="keyPressNumbers($event)">
+                                </div>
+                                <div class="form-group col-4 mx-auto d-flex flex-column ">
+                                    <label *ngIf="modalBoxName === 'Edit'"> Hallmark (in %)</label>
+                                   <input  class="form-control" type="text" [placeholder]="'Hallmark(in %)'"  [(ngModel)]="productHallmark" [ngModelOptions]="{ standalone: true }" (keypress)="keyPress($event, modalBoxName, editProductId)"  (keypress)="keyPressNumbers($event)">
+                                </div>  
+                                <div class="form-group col-4 mx-auto d-flex flex-column ">
+                                    <label *ngIf="modalBoxName === 'Edit'"> Making Charge(in %)</label>
+                                   <input  class="form-control" type="text" [placeholder]="'Making Charge(in %)'"  [(ngModel)]="productMakingCharge" [ngModelOptions]="{ standalone: true }" (keypress)="keyPress($event, modalBoxName, editProductId)"  (keypress)="keyPressNumbers($event)">
+                                </div>                 
+                            </div>
+
+
+                            <div class="row">
+                                <div class="form-group col-4 mx-auto d-flex flex-column">
+                                    <label *ngIf="modalBoxName === 'Edit'"> Discount (in %)</label>
+                                    <input [(ngModel)]="productDiscPrice" type="text" class="form-control" id="productDiscPrice" [placeholder]="'Discount(in %)'"  [ngModelOptions]="{standalone: true}" (keypress)="keyPress($event, modalBoxName, editProductId)"  (keypress)="keyPressNumbers($event)">
+                                <p class="invalid-error" *ngIf="errorMsg.product_discount_price">{{errorMsg.product_discount_price}}</p>
+                                </div> 
+                                <div class="form-group col-4 mx-auto d-flex flex-column">
+                                    <label *ngIf="modalBoxName === 'Edit'"> Size</label>
+                                    <angular2-multiselect [(ngModel)]="sizeArray" [data]="sizesList" (keyup.enter)="openSize($event)" [settings]="sizeSettings" [ngModelOptions]="{standalone: true}" (onDeSelectAll)="onDeSelectAllSizes($event)" #sizeDropDown></angular2-multiselect>
+                                    <p class="invalid-error" *ngIf="errorMsg.product_sizes">{{errorMsg.product_sizes}}</p>
+                                </div>
+                                <div class="form-group col-4 mx-auto d-flex flex-column ">
+                                    <label *ngIf="modalBoxName === 'Edit'"> Product Price ₹</label>
+                                    <input disabled [(ngModel)]="productPrice"  type="text" class="form-control" id="productPrice" placeholder="Price ₹" [ngModelOptions]="{standalone: true}" (keypress)="keyPress($event, modalBoxName, editProductId)"
+                                    (keypress)="keyPressNumbers($event)">
+                                    <p class="invalid-error" *ngIf="errorMsg.product_price">{{errorMsg.product_price}}</p>
+                                </div>                  
+                            </div>
+  
+
+                            <div class="form-group">
+                                <textarea [(ngModel)]="productDesc" class="form-control" id="productDesc" placeholder="Enter Product Description" [ngModelOptions]="{standalone: true}" (keypress)="keyPress($event, modalBoxName, editProductId)">
+                                </textarea>
+                                <p class="invalid-error" *ngIf="errorMsg.product_description">
+                                    {{errorMsg.product_description}}</p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="popUpClose()"><i
+                                class="fa fa-times"></i> Cancel</button>
+                        <button type="button" class="btn btn-success" [ngClass]="{'btn-loading disabled': loadingBtn}" (click)="store()" *ngIf="modalBoxName === 'Create'"><i
+                                class="fa fa-check-square-o"></i> {{modalBoxName}} </button>
+                        <button type="button" class="btn btn-success" [ngClass]="{'btn-loading disabled': loadingBtn}" (click)="update(editProductId)" *ngIf="modalBoxName === 'Edit'"><i
+                                class="fa fa-check-square-o"></i> {{modalBoxName}} </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal " [class.d-block]="viewBox" [class.d-none]="!viewBox">
+            <div class="container boder-bottom-li animated bounceInDown"  [class.active]="i === 0" *ngFor="let banner of productList; let i = index">
+                <div class="title">{{productName}} - {{categoryName}}</div>
+                <button (click)="popUpClose()" class="view-close btn-danger"></button>
+                <div class="text">
+                    <div class="row">
+                        <div class="col-sm-12 ">
+                            <div class="heading">
+                            </div>
+
+                            <div class="body-text">
+                                <img class="d-block w-100"  [src]=convertImageUrl(viewimage) alt="image" >
+                            </div>
+                            <!-- <div class="ml-50">
+                                <div class="body-text popup-slide">
+                                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-wrap="false">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item ">
+                                                <img class="d-block w-100"  [src]=convertImageUrl(banner.images[0].product_image) alt="First slide">
+                                                <img class="d-block w-100"  [src]=convertImageUrl(viewimage) alt="image" alt="First slide">
+                                            </div>
+                                        </div>
+                                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="view-card">
+                            <div class="card-header">
+                                <h4 class="mb-1">Prices</h4>
+                            </div>
+                            <div class="container-fluid">
+                                <div class="form-row">
+                                    <div class="col-6">
+                                        <input class="form-control text-center" value="Price - ₹ {{productPrice}}" type="text" disabled>
+                                    </div>
+                                    <div class="col-6">
+                                        <input class="form-control text-center" value="Discounted Price - ₹ {{productDiscPrice}}" type="text" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="view-card">
+                            <div class="card-header">
+                                <h4 class="mb-1">Description</h4>
+                            </div>
+                            <div class="px-4 text-left card-body">
+                                <p>{{productDesc}}</p>
+                            </div>
+                            <div class="card-header">
+                                <h4 class="mb-1">Sizes</h4>
+                            </div>
+                            <div class="px-4 text-left card-body" *ngIf="sizeArray.length">
+                                <span *ngFor="let item of sizeArray">{{item.itemName}}, </span>
+                            </div>
+                            <div class="px-4 text-left card-body" *ngIf="!sizeArray.length">
+                                <span>No Sizes Available</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal " id="formmodal" [class.d-block]="stockBox" [class.d-none]="!stockBox">
+            <div class="modal-dialog">
+                <div class="modal-content border-success animated" [class.swing]="errorMsg.length === 0" [class.shake]="errorMsg.length != 0">
+                    <div class="modal-header bg-success">
+                        <h5 class="modal-title text-white">{{modalBoxName}} - {{stockProductName}}</h5>
+                        <button id="closeModal" type="button" class="close text-white" data-dismiss="modal" (click)="popUpClose()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form autocomplete="off" [formGroup]="stockForm">
+                            <div *ngFor="let stock of productStocks;let i = index" class="form-group">
+                                <label *ngIf="stock.size_id" for="size">Size ({{stock.size[0].size_name}}):</label>
+                                <input *ngIf="stock.size_id" type="text" class="form-control" id={{stock.size[0].size_name}} [formControlName]="stock.id" placeholder="Enter Quantity Of {{stock.size[0].size_name}}" (keypress)="$event.keyCode == 13 ? updateProductStocks() : null" appNumbersOnly>
+                                <input *ngIf="!stock.size_id" type="text" class="form-control" [formControlName]="stock.id" placeholder="Enter Quantity Of {{stockProductName}}" (keypress)="$event.keyCode == 13 ? updateProductStocks() : null" appNumbersOnly>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning input-group-btn"
+                        data-dismiss="modal" (click)="outOfStocks()"><i
+                            class="fa fa-thumbs-down"></i> Out Of Stock</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="popUpClose()"><i
+                                class="fa fa-times"></i> Cancel</button>
+                        <button type="button" class="btn btn-success" [ngClass]="{'btn-loading disabled': loadingBtn}" (click)="updateProductStocks()"><i class="fa fa-check-square-o"></i> Update </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

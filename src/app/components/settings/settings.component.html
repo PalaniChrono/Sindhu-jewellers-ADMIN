@@ -1,0 +1,54 @@
+<app-header> </app-header>
+<app-sidemenu></app-sidemenu>
+<div class="app sidebar-mini">
+    <div class="page">
+        <div class="page-main">
+            <div class="app-content">
+                <div class="side-app">
+                    <div class="page-header">
+                        <h4 class="page-title">Settings</h4>
+                    </div>
+                    <div class="row flxy">
+                        <div class="col-xl-6">
+                            <div class="row">
+                                <div class="col-xl-12 ">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title">Setting Details</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <form>
+                                                <div class="form-group-1 row">
+                                                    <label for="basic-select" class="col-sm-4 col-form-label">Delivery Charge (₹)</label>
+                                                    <div class="col-sm-6 mb-2">
+                                                        <input [(ngModel)]="deliveryCharge" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup.enter)="setSettings()" placeholder="Enter Delivery Charge">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group-1 row">
+                                                    <label for="basic-select" class="col-sm-4 col-form-label">CGST (%)</label>
+                                                    <div class="col-sm-6 mb-2">
+                                                        <input [(ngModel)]="cgst" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup.enter)="setSettings()" placeholder="Enter CGST Percentage">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group-1 row">
+                                                    <label for="basic-select" class="col-sm-4 col-form-label">SGST (%)</label>
+                                                    <div class="col-sm-6 mb-2">
+                                                        <input [(ngModel)]="sgst" [ngModelOptions]="{standalone: true}" type="text" class="form-control" (keyup.enter)="setSettings()" placeholder="Enter SGST Percentage">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group-1 row flxy">
+                                                    <button type="button" class="btn btn-success modal-btn" (click)="setSettings()"><i class="fa fa-check-square-o"></i> Update Settings </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+.product-img {
+    width: 100px;
+    height: auto;
+}
+
+.track {
+    display: flex;
+}
+
+.track-input {
+    width: 60%;
+    margin-right: 10px;
+}

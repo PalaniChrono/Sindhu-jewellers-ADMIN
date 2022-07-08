@@ -1,0 +1,87 @@
+.card-order {
+    padding: 1em 1.5em;
+}
+
+.dashboard-card {
+    padding: 1em;
+}
+
+.btn-light {
+    color: #000;
+    background-color: #ffffff;
+    border-color: #a66cf3;
+    border-radius: 25px;
+}
+
+.btn-white {
+    color: #fff;
+    background-color: #a66cf3;
+    border-color: #a66cf3;
+    border-radius: 25px;
+}
+
+.btn-white-active {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #a66cf3;
+    border-radius: 25px;
+}
+
+.btn-white.focus,
+.btn-white:focus {
+    box-shadow: none;
+}
+
+.btn-white.disabled,
+.btn-white:disabled {
+    color: #000;
+    background-color: #ffffff;
+    border-color: #ffffff
+}
+
+.btn-white:not(:disabled):not(.disabled).active,
+.btn-white:not(:disabled):not(.disabled):active,
+.show>.btn-white.dropdown-toggle {
+    color: #000;
+    background-color: #ffffff !important;
+    border-color: 4px solid #a66cf3;
+}
+
+.btn-white:not(:disabled):not(.disabled).active:focus,
+.btn-white:not(:disabled):not(.disabled):active:focus,
+.show>.btn-white.dropdown-toggle:focus {
+    box-shadow: none;
+}
+
+.notify-btn {
+    width: 40px;
+    height: 40px;
+    display: inline;
+}
+
+.notify-close {
+    right: 1rem;
+    top: 12px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.notify-close i {
+    font-size: 1.5rem;
+}
+
+.increament {
+    position: absolute;
+    top: 11px;
+    right: 5.8rem;
+}
+
+.decreament {
+    position: absolute;
+    top: 11px;
+    right: 7.3rem;
+}
+
+.count i {
+    font-size: 1.5rem;
+}

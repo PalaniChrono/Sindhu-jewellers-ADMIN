@@ -1,0 +1,142 @@
+<app-header></app-header>
+<app-sidemenu></app-sidemenu>
+<div class="app sidebar-mini">
+    <div class="page">
+        <div class="page-main">
+            <div class="app-content">
+                <div class="side-app">
+                    <div class="page-header">
+                        <h4 class="page-title">Header Menu</h4>
+                    </div>
+                    <div class="card" *ngIf="allHeaderMenu.length < 5">
+                        <div class="card-header-1">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="card-title">
+                                        <button class="btn btn-success  width-150 button-rad" (click)="openModalBox()"><i class="fa fa-plus-circle icon-space"
+                                                aria-hidden="true"></i>Create Menu</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="card p-4" [class.h-250]="loading" *ngIf="allHeaderMenu.length == 0">
+                                <ngx-loading [show]="loading"></ngx-loading>
+                                <div class="card-header-1">
+                                    <h4 class="text-center">Header Menu Not Available</h4>
+                                </div>
+                            </div>
+                            <div class="card" *ngIf="allHeaderMenu.length != 0">
+                                <div class="card-header">
+                                    <div class="row w-100">
+                                        <div class="col-sm-6">
+                                            <div class="card-title d-block">List of Header Menu - ( {{allHeaderMenu.length}} )</div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="float-right">
+                                                <p class="text-danger" *ngIf="allHeaderMenu.length >= 5">*Note: You can only add 5 header menus, delete any one then add</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered text-nowrap w-100 text-center align-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th class="wd-15p">S.no</th>
+                                                    <th class="wd-15p">Name</th>
+                                                    <th class="wd-15p">Url</th>
+                                                    <th class="wd-15p">Status</th>
+                                                    <th class="wd-10p">Value</th>
+                                                    <th class="wd-25p">Delete</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let menu of allHeaderMenu| paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                                                    <td>{{(i+1) + ((p-1) * 5)}}</td>
+                                                    <td>{{menu.header_menu_name | titlecase}}</td>
+                                                    <td>/category/{{menu.header_menu_slug}}</td>
+                                                    <td>
+                                                        <span class=" text-success status_icon m-1 " *ngIf="menu.active_status === 1"><i
+                                                                class="fa fa-smile-o mr-2 mobile-icon"
+                                                                aria-hidden="true"></i><span class="window-text">
+                                                                Active</span></span>
+                                                        <span class=" text-danger status_icon m-1 " *ngIf="menu.active_status === 0"><i
+                                                                class="fa fa-frown-o mr-2 mobile-icon"
+                                                                aria-hidden="true"></i><span class="window-text">
+                                                                In-Active</span></span>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-round btn-radius waves-effect waves-light m-1" *ngIf="menu.active_status === 0" (click)="activateHeaderMenu(menu.header_menu_id)"><i
+                                                                class="fa fa-check-circle mobile-icon"></i><span
+                                                                class="window-text">Activate this
+                                                                Menu</span></button>
+                                                        <button type="button" *ngIf="menu.active_status === 1" class="btn btn-danger btn-round btn-radius waves-effect waves-light m-1" (click)="deActivateHeaderMenu(menu.header_menu_id)"><i
+                                                                class="fa fa-times-circle mobile-icon"></i><span
+                                                                class="window-text">De-Activate this
+                                                                Menu</span></button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-server btn-danger" (click)="deleteHeaderMenu(menu.header_menu_id)"><i
+                                                                class="fa fa-trash-o fa-1x mobile-icon"></i> <span
+                                                                class="window-text">Delete</span></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <pagination-controls *ngIf="allHeaderMenu.length > 5" (pageChange)="p = $event"></pagination-controls>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal " id="formmodal" [class.d-block]="showpopup" [class.d-none]="!showpopup">
+            <div class="modal-dialog">
+                <div class="modal-content border-success animated" [class.swing]="errorMsg.length === 0" [class.shake]="errorMsg.length != 0">
+                    <div class="modal-header bg-success">
+                        <h5 class="modal-title text-white">{{modalBoxName}}</h5>
+                        <button id="closeModal" type="button" class="close text-white" data-dismiss="modal" (click)="popUpClose()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form autocomplete="off" *ngIf="modalBoxName === 'Create Menu'">
+                            <div class="form-group">
+                                <ng-autocomplete id='categoryName' class="category-details" notFoundText="Category Not Found" placeHolder="Category Name" [data]="allCategoryList" [searchKeyword]="keyword" (selected)="selectedCategory($event)" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                                    [(ngModel)]="categoryName" [ngModelOptions]="{standalone: true}">
+                                </ng-autocomplete>
+
+                                <ng-template #itemTemplate let-item>
+                                    <!-- <a [innerHTML]="item.name"></a> -->
+                                    <div class="item">
+                                        <span [innerHTML]="item.name"></span>
+                                    </div>
+                                </ng-template>
+
+                                <ng-template #notFoundTemplate let-notFound>
+                                    <div [innerHTML]="notFound"></div>
+                                </ng-template>
+                                <p class="invalid-error" *ngIf="errorMsg.category_name">{{errorMsg.category_name}}
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="popUpClose()"><i
+                                class="fa fa-times"></i> Cancel</button>
+                        <button type="button" class="btn btn-success" [ngClass]="{'btn-loading disabled': loadingBtn}" (click)="createHeaderMenu()" *ngIf="modalBoxName === 'Create Menu'"><i
+                                class="fa fa-check-square-o"></i> {{modalBoxName}} </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <app-footer></app-footer>
+    </div>
+</div>

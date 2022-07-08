@@ -1,0 +1,9 @@
+.image {
+    width: 135px;
+    height: 80px;
+    cursor: pointer;
+}
+
+.carousel-inner {
+    border-radius: 25px;
+}

@@ -1,0 +1,116 @@
+<app-header> </app-header>
+<app-sidemenu></app-sidemenu>
+<div class="app sidebar-mini">
+    <div class="page">
+        <div class="page-main">
+            <div class="app-content">
+                <div class="side-app">
+                    <div class="page-header">
+                        <h4 class="page-title">Party New Pattern</h4>
+                    </div>
+                    <div class="card">
+                      <div class="card-header-1">
+                         <div class="row">
+                             <div class="col-6">
+                                 <div class="card-title">
+                                   <a style="color:#fff;" class="btn btn-success  width-150 button-rad" routerLink="/party-new-pattern" href="javascript:void(0);">
+                                     Back</a>
+                                 </div>
+                             </div>
+                             <div class="col-6 d-none"></div>
+                         </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 col-lg-12">
+                        <div class="card">
+                          <div class="card-body">                          
+          
+                                  <div class="row">
+          
+                                     <div class="form-group col-4">
+                                      <h2 > Customer Details</h2>
+                                        <h5>Name : {{customerName}}</h5>
+                                        <h5>Mobile No : {{CustomerNO}}</h5>
+                                        <h5>Date : {{createDate  | date:'medium'}}</h5>          
+                                      </div>
+                                  </div>
+                                  <hr>
+                                  <div class="row">
+          
+                                      <div class="form-group col-3">
+                                        <h2 >Top View</h2>
+                                        <img  class="image"  [src]=convertImageUrl(topView) (click)="viewImage(topView,topname)">         
+                                      </div>
+                                      <div class="form-group col-3">
+                                          <h2 >Bottom View</h2>
+                                          <img  class="image"  [src]=convertImageUrl(bottomView) (click)="viewImage(bottomView,bottomname)">            
+                                        </div>
+                                        <div class="form-group col-3">
+                                          <h2 >Front View</h2>
+                                          <img  class="image"  [src]=convertImageUrl(frontView) (click)="viewImage(frontView,frontname)">           
+                                        </div>
+                                        <div class="form-group col-3">
+                                          <h2 >Back View</h2>
+                                          <img  class="image"  [src]=convertImageUrl(backView) (click)="viewImage(backView,backname)">           
+                                        </div>
+                                  </div>
+
+                                  <div class="row">
+          
+                                    <div class="form-group col-12">
+                                      <h2 >Customer Requirements</h2>
+                                      <h3>Requirement Weight: {{goldWeight}}(in gms)</h3>
+                                      <h3>Requirement Metal Pureity : {{metalPureity}}</h3>
+                                      <h3>Requirement Product Type : {{productType}}</h3>
+
+                                    </div>
+                                    
+                                   </div>
+          
+                                   <!-- <div class="col-6 mb-5 mt-5">
+                                      <button class="btn btn-success   rounded mx-auto" *ngIf="blog_id" (click)="updateblog()" >Update</button>
+                                     <button class="btn btn-success   rounded mx-auto" *ngIf="!blog_id" (click)="Createblog()" >Create</button>
+                                   </div> -->
+                             
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+          
+                    
+
+
+                </div>
+            </div>
+        </div>
+        <div class="modal " [class.d-block]="viewBox" [class.d-none]="!viewBox">
+            <div class="container boder-bottom-li animated bounceInDown">
+                <div class="title">{{viewtopname}} </div>
+                <button (click)="popUpClose()" class="view-close btn-danger"></button>
+                <div class="text">
+                    <div class="row">
+                        <div class="col-sm-12 ">
+                            <div class="heading">
+                            </div>
+                            <div class="body-text">
+                                <!-- <img *ngIf="showImage"  [src]=convertImageUrl(viewImagePreview) alt="image" width="300" height="400"> -->
+                                <img *ngIf="showImage"  [src]=convertImageUrl(viewImagePreview) alt="image" >
+
+                            </div>
+                        </div>
+                        <!-- <div class="view-card">
+                            <div class="card-header">
+                                <h4 class="mb-1">Weight</h4>
+                            </div>
+                            <div class="card-body text-left">
+                                <p>Hwight</p>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

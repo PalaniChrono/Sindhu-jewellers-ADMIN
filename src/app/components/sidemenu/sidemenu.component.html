@@ -1,0 +1,154 @@
+<div class="app sidebar-mini">
+    <div class="page">
+        <div class="page-main">
+            <aside class="app-sidebar" #scrollMe>
+                <div class="app-sidebar__user">
+                    <div class="dropdown user-pro-body text-center">
+                        <div class="user-pic">
+                            <img src="assets/images/boy-face.png" alt="user-img" class="avatar-xl rounded-circle mb-1">
+                        </div>
+                        <div class="user-info">
+                            <h6 class=" mb-1 text-light"><b>{{user | titlecase}}</b></h6>
+                            <!-- <span class="text-center user-semi-title text-white">( {{roleName | titlecase}} )</span> -->
+                        </div>
+                    </div>
+                </div>
+                <ul class="side-menu">
+                    <li class="slide"> 
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/golddashboard" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-view-dashboard"></i>
+                            <span class="side-menu__label">Current Gold Rate</span></a>
+                    </li>
+                    <li class="slide"> 
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/trade-Review" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-view-dashboard"></i>
+                            <span class="side-menu__label">Trade Review</span></a>
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/categories" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-book"></i>
+                            <span class="side-menu__label">Categories</span></a>
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/sub-categories" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-collection-text"></i>
+                            <span class="side-menu__label">Sub-Categories</span></a>
+                    </li>
+                    <!-- <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/tags" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-tag"></i>
+                            <span class="side-menu__label">Tags</span></a>
+                    </li> -->
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/sizes" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-ruler"></i>
+                            <span class="side-menu__label">Sizes</span></a>
+                    </li>
+                    <!-- <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/color" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-invert-colors zmdi-hc-fw"></i>
+                            <span class="side-menu__label">Color</span></a>
+                    </li> -->
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/orders" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-shopping-cart"></i>
+                            <span class="side-menu__label">Orders</span></a>
+                    </li>
+                    <!-- <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/cancel-orders" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-alert-circle-o"></i>
+                            <span class="side-menu__label">Cancel Orders</span></a>
+                    </li> -->
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/products" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-plus-circle-o-duplicate"></i>
+                            <span class="side-menu__label">Products</span></a>
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/party-new-pattern" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-plus-circle-o-duplicate"></i>
+                            <span class="side-menu__label">Party New Pattern</span></a>
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/party-existing-pattern" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-plus-circle-o-duplicate"></i>
+                            <span class="side-menu__label">Party Existing Pattern</span></a>
+                    </li>
+                    <!-- <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/link-products" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-group"></i>
+                            <span class="side-menu__label">Link Products</span></a>
+                    </li> -->
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/banner" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-wallpaper"></i>
+                            <span class="side-menu__label">Banner</span></a>
+                    </li>
+                    <!-- <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/mobile-banner" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-smartphone-iphone"></i>
+                            <span class="side-menu__label">Mobile Banner</span></a>
+                    </li> -->
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/ad-banner" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-wallpaper"></i>
+                            <span class="side-menu__label">Ad Banner</span></a>
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/promo-code" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-label"></i>
+                            <span class="side-menu__label">Promo Codes</span></a>
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/location" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-pin"></i>
+                            <span class="side-menu__label">Locations</span></a>
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/users" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-accounts"></i>
+                            <span class="side-menu__label">Users</span></a> 
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/userdetails" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-accounts"></i>
+                            <span class="side-menu__label">User Details</span></a> 
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/settings" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-settings"></i>
+                            <span class="side-menu__label">Settings</span></a>
+                    </li>
+                    <!-- <li class="slide">
+                        <a class="side-menu__item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}" routerLink="/header-menu" href="javascript:void(0);">
+                            <i class="side-menu__icon zmdi zmdi-wallpaper"></i>
+                            <span class="side-menu__label">Header-Menu</span></a>
+                    </li> -->
+
+                </ul>
+            </aside>
+        </div>
+    </div>
+</div>

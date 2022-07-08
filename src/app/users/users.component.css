@@ -1,0 +1,78 @@
+.dish-details /deep/ .autocomplete-container .input-container input {
+    display: inline;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #000;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #cadef0;
+}
+
+.dish-details /deep/ .autocomplete-container .input-container input:focus {
+    border: 1px solid #cadef0;
+}
+
+.dish-details /deep/ .autocomplete-container .input-container .x i {
+    color: rgb(255, 255, 255);
+    font-size: 22px;
+    vertical-align: middle;
+}
+
+.dish-details /deep/ .autocomplete-container .suggestions-container {
+    position: absolute;
+    width: 100%;
+    background: #fff;
+    height: auto;
+    box-sizing: border-box;
+    z-index: 9999;
+}
+
+.dish-details /deep/ .autocomplete-container .input-container input::placeholder {
+    color: #6c81a6;
+}
+
+.dish-details /deep/ .autocomplete-container .suggestions-container ul li a {
+    padding: 14px 15px;
+    width: auto;
+    text-decoration: none;
+    cursor: pointer;
+    color: #000;
+    font-size: 15px;
+}
+
+.dish-details /deep/ .autocomplete-container {
+    box-shadow: none !important;
+}
+
+.dish-details /deep/ .autocomplete-container .suggestions-container ul li:hover {
+    background-color: #c0ad2b;
+    color: #fff;
+}
+
+.dish-details /deep/ .autocomplete-container .suggestions-container ul {
+    padding: 0;
+    margin: 0;
+    max-height: none;
+    overflow-y: hidden;
+}
+
+.bill_btn {
+    width: 100%;
+    height: 40px;
+    font-size: 15px;
+}
+
+.bill_btn_align {
+    padding: 14px 0 16px 46px;
+}
+
+.dish-details /deep/ .autocomplete-container .not-found {
+    padding: 0 .75em;
+    border: 1px solid #fff;
+    background: #fff;
+    width: 75% !important;
+    display: inline-grid;
+}

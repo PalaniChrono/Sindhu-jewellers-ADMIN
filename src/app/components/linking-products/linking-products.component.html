@@ -1,0 +1,79 @@
+<app-header> </app-header>
+<app-sidemenu></app-sidemenu>
+<div class="app sidebar-mini">
+    <div class="page">
+        <div class="page-main">
+            <div class="app-content">
+                <div class="side-app">
+                    <div class="page-header">
+                        <h4 class="page-title">Linking Products</h4>
+                    </div>
+                    <div class="card formSize">
+                        <div class="card-header-1">
+                            <div class="row">
+                                <div class="col-12">
+                                    <form autocomplete="off">
+                                        <div class="form-group">
+                                            <ng-autocomplete id='productColor' class="category-details" notFoundText="Color Not Found" placeHolder="Enter Color Name" [data]="activeColorlist" (selected)="selectedColor($event)" [searchKeyword]="keyword" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" [(ngModel)]="productColor" [ngModelOptions]="{standalone: true}" (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' #colorauto>
+                                            </ng-autocomplete>
+                                            <ng-template #itemTemplate let-item>
+                                                <div class="item">
+                                                    <span [innerHTML]="item.name"></span>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template #notFoundTemplate let-notFound>
+                                                <div [innerHTML]="notFound"></div>
+                                            </ng-template>
+                                            <p class="invalid-feedback" *ngIf="errorMsg.color_id">Color is required</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <ng-autocomplete id='productName' class="category-details" notFoundText="Product Not Found" placeHolder="Enter Product Name" [data]="activeProductlist" 
+                                            (selected)="selectedProduct($event)" [searchKeyword]="keyword" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" [(ngModel)]="productName" [ngModelOptions]="{standalone: true}" (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' #productauto>
+                                            </ng-autocomplete>
+                                            <ng-template #itemTemplate let-item>
+                                                <div class="item">
+                                                    <span [innerHTML]="item.name"></span>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template #notFoundTemplate let-notFound>
+                                                <div [innerHTML]="notFound"></div>
+                                            </ng-template>
+                                            <p class="invalid-feedback" *ngIf="errorMsg.product_id">Product is required</p>
+                                        </div>
+                                        <div class="formBtn">
+                                        <button type="button" class="btn btn-success" [ngClass]="{'btn-loading disabled': loadingBtn}" (click)="addLinkProduct()"><i class="fa fa-plus"></i> Add </button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card my-3 overFlow" *ngFor="let product of linkProductList">
+                        <div class="row">
+                                <div class="col-md-2">
+                                    <div class="imgHolder">
+                                        <img src="{{product.products.images[0].product_image}}">
+                                    </div>
+                                </div>
+                                <div class="col-md-8 flxy">
+                                    <h3 class="prodTitle">{{product.products.product_name}}</h3>
+                                    <p class="prodPrice">₹ {{product.products.product_price}}</p>
+                                    <p class="prodDes">Color : {{product.color.color_name}}</p>
+                                    <p class="prodDes"><button class="color-pallette"
+                                        [style.background]="product.color.color_code"
+                                        [style.border]="product.color.color_code"
+                                        ></button></p>
+                                </div>
+                                <div class ="col-md-2 flxy">
+                                    <div class="floatBtnClose" (click)="deleteLinkProduct(product.id)">
+                                        <button class="fa fa-close btn"></button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

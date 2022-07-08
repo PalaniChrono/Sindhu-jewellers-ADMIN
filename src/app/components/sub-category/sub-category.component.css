@@ -1,0 +1,8 @@
+@media (max-width: 420px) {
+    .view-card.card-body {
+        padding: 0;
+    }
+    .view-card {
+        margin-bottom: 0;
+    }
+}
